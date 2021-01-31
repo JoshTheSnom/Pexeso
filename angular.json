@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Pexeso"
+    }
+  },
+  "defaultProject": "Pexeso",
+  "cli": {
+    "analytics": false
+  }
 }

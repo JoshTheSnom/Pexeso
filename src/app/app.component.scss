@@ -1,0 +1,21 @@
+.field {
+  width: 1100px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-template-rows: 200px 200px 200px 200px;
+}
+
+.card {
+  cursor: pointer;
+  padding: 20px;
+  margin: 2px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
