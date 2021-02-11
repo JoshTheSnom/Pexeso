@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import {callbackify} from "util";
 
 interface Card{
   icon: string;
   flipped: boolean;
+  found: boolean;
 }
 
 @Component({
@@ -22,22 +24,22 @@ export class AppComponent {
   savedCard: Card | null = null;
 
   listCards: Card[] = [
-    {icon: "Apple", flipped: false},
-    {icon: "Apple", flipped: false},
-    {icon: "Watermelon", flipped: false},
-    {icon: "Watermelon", flipped: false},
-    {icon: "Orange", flipped: false},
-    {icon: "Orange", flipped: false},
-    {icon: "Strawberry", flipped: false},
-    {icon: "Strawberry", flipped: false},
-    {icon: "Grape", flipped: false},
-    {icon: "Grape", flipped: false},
-    {icon: "Cherry", flipped: false},
-    {icon: "Cherry", flipped: false},
-    {icon: "Mango", flipped: false},
-    {icon: "Mango", flipped: false},
-    {icon: "Banana", flipped: false},
-    {icon: "Banana", flipped: false},
+    {icon: "Apple", flipped: false, found: false},
+    {icon: "Apple", flipped: false, found: false},
+    {icon: "Watermelon", flipped: false, found: false},
+    {icon: "Watermelon", flipped: false, found: false},
+    {icon: "Orange", flipped: false, found: false},
+    {icon: "Orange", flipped: false, found: false},
+    {icon: "Strawberry", flipped: false, found: false},
+    {icon: "Strawberry", flipped: false, found: false},
+    {icon: "Grape", flipped: false, found: false},
+    {icon: "Grape", flipped: false, found: false},
+    {icon: "Cherry", flipped: false, found: false},
+    {icon: "Cherry", flipped: false, found: false},
+    {icon: "Mango", flipped: false, found: false},
+    {icon: "Mango", flipped: false, found: false},
+    {icon: "Banana", flipped: false, found: false},
+    {icon: "Banana", flipped: false, found: false},
 
   ]
   cards: Card[];
@@ -47,6 +49,10 @@ export class AppComponent {
 
 
     this.numPairs = pairs as unknown as number;
+    if (this.numPairs < 2){
+      this.bigNumPairs = false;
+      this.smallNumPairs = true;
+    }
     if(this.numPairs > 1 && this.numPairs <= this.listCards.length/2) {
 
       this.smallNumPairs = false;
@@ -90,6 +96,8 @@ export class AppComponent {
             }, 500);
           }
           else {
+            this.savedCard.found = true;
+            clickedCard.found = true;
             this.foundPairs++;
             this.hasWon();
           }
@@ -100,15 +108,18 @@ export class AppComponent {
 
     hasWon() {
       if(this.foundPairs == this.numPairs) {
-
+        setTimeout(()=>{
         this.won = true;
+
         for(let i = 0; i < this.cards.length; i++) {
           this.cards[i].flipped = false;
+          this.cards[i].found = false;
         }
         this.cards = [];
         this.foundPairs = 0;
         this.savedCard = null;
         this.hasStarted = false;
+        },500);
       }
     }
 }
