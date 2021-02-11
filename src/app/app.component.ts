@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {element} from "protractor";
 
 interface Card{
   icon: string;
