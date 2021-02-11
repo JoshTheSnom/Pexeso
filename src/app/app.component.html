@@ -1,7 +1,14 @@
-<div class="field" style="width: 1100px;">
+<div *ngIf="!hasStarted">
+  <input #pairs placeholder="Number of Pairs">
+  <button (click)="startGame(pairs.value)">Start</button>
+</div>
+
+<div *ngIf="!won && hasStarted" class="field" style="width: 1100px;">
   <div class="cards" >
    <div class="card" *ngFor="let card of cards" (click)="turn(card)">
      <p *ngIf="card.flipped">{{card.icon}}</p>
     </div>
   </div>
 </div>
+
+<h1 *ngIf="won">YOU WON!</h1>
