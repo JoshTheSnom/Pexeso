@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {element} from "protractor";
 
 interface Card{
   icon: string;
@@ -41,13 +42,31 @@ export class AppComponent {
 
   ]
   cards: Card[];
+  smallNumPairs: boolean = false;
+  bigNumPairs: boolean = false;
   startGame(pairs: string) {
-    this.won = false;
-    this.numPairs = pairs as unknown as number;
-    this.hasStarted = true;
 
-    this.cards = this.listCards.slice(0, this.numPairs*2);
-    this.cards = this.cards.sort(() =>  Math.random() - 0.5);
+
+    this.numPairs = pairs as unknown as number;
+    if(this.numPairs > 1 && this.numPairs <= this.listCards.length/2) {
+
+      this.smallNumPairs = false;
+      this.bigNumPairs = false;
+
+      this.won = false;
+      this.hasStarted = true;
+
+      this.cards = this.listCards.slice(0, this.numPairs*2);
+      this.cards = this.cards.sort(() =>  Math.random() - 0.5);
+    }
+    else if (this.numPairs < 2){
+      this.bigNumPairs = false;
+      this.smallNumPairs = true;
+    }
+    else {
+      this.smallNumPairs = false;
+      this.bigNumPairs = true;
+    }
   }
 
 
