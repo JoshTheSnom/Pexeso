@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {callbackify} from "util";
+import { FormsModule } from "@angular/forms";
 
 interface Card{
   icon: string;

@@ -1,16 +1,21 @@
-<div *ngIf="!hasStarted">
-  <input #pairs placeholder="Number of Pairs" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-  <button (click)="startGame(pairs.value)">Start</button>
-
-  <p *ngIf="smallNumPairs">Minimum of 2 pairs</p>
-  <p *ngIf="bigNumPairs">Maximum of {{listCards.length/2}} pairs</p>
-</div>
+<form #form=ngForm>
+  <div *ngIf="!hasStarted">
+    <input [(ngModel)]="numPairs" name="pairs" #pairs="ngModel" placeholder="Number of Pairs" [appMin]="2"
+           [appMax]="listCards.length/2" required="" type="number" class="neser">
+    <button [disabled]="form.invalid" (click)="startGame(pairs.value)">Start</button>
+    <div *ngIf="pairs.invalid && pairs.touched">
+      <p *ngIf="pairs.errors.min">Minimum of 2 pairs</p>
+      <p *ngIf="pairs.errors.max">Maximum of {{listCards.length / 2}} pairs</p>
+      <p *ngIf="pairs.errors.required">type something smh</p>
+    </div>
+  </div>
+</form>
 
 <div *ngIf="!won && hasStarted" class="field" style="width: 1100px;">
-  <div class="cards" >
-   <div class="card" *ngFor="let card of cards" (click)="turn(card)">
-     <p *ngIf="card.flipped && !card.found">{{card.icon}}</p>
-     <p class="found" *ngIf="card.flipped && card.found">{{card.icon}}</p>
+  <div class="cards">
+    <div class="card" *ngFor="let card of cards" (click)="turn(card)">
+      <p *ngIf="card.flipped && !card.found">{{card.icon}}</p>
+      <p class="found" *ngIf="card.flipped && card.found">{{card.icon}}</p>
     </div>
   </div>
 </div>
